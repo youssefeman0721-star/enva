@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>بصمتي الخضراء</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Reem+Kufi:wght@500;600;700&display=swap">
+<style>
+/* Layout: RTL multi-page site. Shared header and footer, one content column up to 1040px, start-aligned text. */
+:root {
+  --bg: #EAF2EF;
+  --surface: #FFFFFF;
+  --ink: #0E2A2B;
+  --muted: #4F6B6A;
+  --line: #CFDEDA;
+  --soft: #DDEDE9;
+  --accent: #0A7771;
+  --accent-ink: #FFFFFF;
+  --sun: #C98A0B;
+  --water: #1D6FA5;
+  --danger: #B3402A;
+  --font-display: "Reem Kufi", "Cairo", "Segoe UI", Tahoma, sans-serif;
+  --font-body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0A1819; --surface: #112628; --ink: #E4F1EF; --muted: #98B4B1; --line: #20403F; --soft: #173231;
+    --accent: #3CC2B6; --accent-ink: #06201F; --sun: #F0B93A; --water: #6DB6E8; --danger: #F08A74;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0A1819; --surface: #112628; --ink: #E4F1EF; --muted: #98B4B1; --line: #20403F; --soft: #173231;
+  --accent: #3CC2B6; --accent-ink: #06201F; --sun: #F0B93A; --water: #6DB6E8; --danger: #F08A74;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body {
+  margin: 0;
+  direction: rtl;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  padding-block: 0 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+.wrap { max-width: 1040px; margin: 0 auto; }
+.eyebrow { font-size: 13px; letter-spacing: .04em; color: var(--muted); }
+
+/* Site header */
+.site-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; padding-block: 18px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 22px; }
+.brand svg { width: 30px; height: 30px; flex: none; transform: rotate(-90deg); }
+.brand .t { fill: none; stroke: var(--soft); stroke-width: 5; }
+.brand .a { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 50 76; }
+.nav { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+.nav a { text-decoration: none; padding: 6px 12px; border-radius: 8px; color: var(--muted); font-weight: 500; }
+.nav a:hover { color: var(--ink); background: var(--soft); }
+.nav a.on { color: var(--ink); background: var(--soft); font-weight: 600; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 8px 22px; border-radius: 10px; text-decoration: none; font-weight: 600; border: 1.5px solid var(--accent); cursor: pointer; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.06); }
+.btn.on-accent { background: var(--accent-ink); color: var(--accent); border-color: var(--accent-ink); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* Panels */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; min-width: 0; }
+.panel h2 { font-weight: 600; font-size: 20px; margin-bottom: 14px; }
+
+/* Landing */
+.hero { display: grid; gap: 36px; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: center; padding-block: 40px 56px; }
+.hero h1 { font-weight: 700; font-size: clamp(34px, 6.4vw, 60px); line-height: 1.2; }
+.hero .lead { margin-block: 18px 26px; font-size: 18px; color: var(--muted); max-width: 52ch; }
+.sample { position: relative; }
+.sample .tag { position: absolute; top: -12px; inset-inline-start: 18px; background: var(--sun); color: #1B1300; font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 99px; }
+.sample-body { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.sample-lines { display: grid; gap: 8px; flex: 1 1 140px; min-width: 0; }
+.sample-lines div { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dashed var(--line); padding-bottom: 6px; font-size: 15px; }
+.sample-lines b { font-family: var(--font-display); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.section { padding-block: 40px 8px; }
+.section > h2 { font-size: clamp(26px, 4.5vw, 34px); font-weight: 700; margin-bottom: 22px; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); counter-reset: s; }
+.steps li { counter-increment: s; border-top: 3px solid var(--accent); padding-top: 14px; }
+.steps li::before { content: counter(s, arabic-indic); font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1; color: var(--accent); display: block; margin-bottom: 8px; }
+.steps h3 { font-size: 19px; font-weight: 600; margin-bottom: 4px; }
+.steps p { color: var(--muted); }
+
+.areas { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.areas li { display: grid; grid-template-columns: 120px minmax(0, 1fr) auto; gap: 8px 20px; align-items: baseline; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.areas h3 { font-size: 21px; font-weight: 600; }
+.areas p { color: var(--muted); }
+.areas .eg { font-size: 14px; color: var(--ink); background: var(--soft); border-radius: 99px; padding: 2px 12px; white-space: nowrap; }
+
+.mine { margin-top: 8px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+.mine .nums { display: flex; flex-wrap: wrap; gap: 8px 28px; }
+.mine .nums div { display: flex; flex-direction: column; }
+.mine b { font-family: var(--font-display); font-size: 26px; line-height: 1.2; font-weight: 700; font-variant-numeric: tabular-nums; }
+.mine span { font-size: 13px; color: var(--muted); }
+
+.cta { margin-top: 48px; background: var(--accent); color: var(--accent-ink); border-radius: 18px; padding: clamp(24px, 5vw, 40px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; }
+.cta h2 { font-size: clamp(24px, 4vw, 32px); font-weight: 700; max-width: 22ch; }
+.cta p { opacity: .9; margin-top: 6px; }
+
+/* Inner pages */
+.page-head { padding-block: 24px 20px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 20px; }
+.page-head h1 { font-weight: 700; font-size: clamp(30px, 6vw, 44px); line-height: 1.15; }
+.page-head .sub { color: var(--muted); margin-top: 6px; max-width: 56ch; }
+
+/* Tracker */
+.level { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.level-name { font-family: var(--font-display); font-weight: 600; font-size: 20px; }
+.level-track { width: 120px; height: 8px; border-radius: 99px; background: var(--soft); overflow: hidden; }
+.level-fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width .4s ease; }
+.level-meta { font-size: 13px; color: var(--muted); }
+.grid { display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr); grid-template-areas: "today" "habits" "more"; }
+@media (min-width: 880px) { .grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-areas: "habits today" "habits more"; align-items: start; } }
+.habits { grid-area: habits; }
+.today { grid-area: today; }
+.more { grid-area: more; display: grid; gap: 20px; }
+.today-body { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.ring { width: 132px; height: 132px; flex: none; position: relative; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring .bg { fill: none; stroke: var(--soft); stroke-width: 12; }
+.ring .fg { fill: none; stroke: var(--accent); stroke-width: 12; stroke-linecap: round; transition: stroke-dashoffset .5s ease; }
+.ring-num { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1; }
+.ring-num small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 12px; color: var(--muted); margin-top: 4px; }
+.today-text { flex: 1 1 180px; min-width: 0; }
+.today-text p { margin-bottom: 8px; }
+.today-msg { font-weight: 500; }
+.streak { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); }
+.streak b { font-family: var(--font-display); font-size: 22px; color: var(--sun); font-weight: 700; }
+.habit-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.habit { width: 100%; text-align: start; cursor: pointer; display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 4px 14px; align-items: start; padding: 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); transition: background .2s ease, border-color .2s ease; }
+.habit:hover { border-color: var(--accent); }
+.habit .box { grid-row: span 2; width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--muted); display: grid; place-items: center; margin-top: 2px; transition: background .15s ease, border-color .15s ease; }
+.habit .box svg { width: 16px; height: 16px; stroke: var(--accent-ink); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.habit .name { font-weight: 600; line-height: 1.45; }
+.habit .chips { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--muted); }
+.chip { display: inline-flex; align-items: center; gap: 6px; }
+.chip i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.chip .w { background: var(--water); } .chip .c { background: var(--accent); } .chip .p { background: var(--sun); }
+.habit[aria-checked="true"] { background: var(--soft); border-color: var(--accent); }
+.habit[aria-checked="true"] .box { background: var(--accent); border-color: var(--accent); }
+.habit[aria-checked="true"] .box svg { opacity: 1; }
+.totals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.stat { padding: 12px 10px; border-radius: 10px; background: var(--soft); min-width: 0; }
+.stat b { display: block; font-family: var(--font-display); font-size: clamp(20px, 5vw, 28px); line-height: 1.2; font-weight: 700; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.stat span { font-size: 13px; color: var(--muted); display: block; }
+.note { font-size: 13px; color: var(--muted); margin-top: 12px; }
+.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; align-items: end; }
+.day { display: grid; gap: 6px; justify-items: center; font-size: 12px; color: var(--muted); }
+.bar { width: 100%; max-width: 34px; height: 84px; border-radius: 8px; background: var(--soft); display: flex; align-items: flex-end; overflow: hidden; }
+.bar i { display: block; width: 100%; background: var(--accent); border-radius: 8px 8px 0 0; transition: height .4s ease; }
+.day.is-today { color: var(--ink); font-weight: 600; }
+.day.is-today .bar { outline: 2px solid var(--accent); outline-offset: 2px; }
+.day .n { font-variant-numeric: tabular-nums; }
+.tip-box .eyebrow { color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.tip-box p + p { max-width: 62ch; }
+.foot-row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; color: var(--muted); font-size: 13px; }
+.reset { background: none; border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; color: var(--muted); }
+.reset:hover { border-color: var(--accent); color: var(--ink); }
+.reset.armed { border-color: var(--danger); color: var(--danger); }
+
+/* Tips page */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.filters button { cursor: pointer; border: 1px solid var(--line); background: var(--surface); border-radius: 99px; padding: 6px 16px; font-weight: 500; }
+.filters button:hover { border-color: var(--accent); }
+.filters button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.tip-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tip-list li { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; min-width: 0; }
+.tip-list .cat { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+.tip-list .cat i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; background: var(--accent); }
+.tip-list .cat i.water { background: var(--water); }
+.tip-list .cat i.plastic, .tip-list .cat i.food { background: var(--sun); }
+
+/* About page */
+.prose { display: grid; gap: 28px; max-width: 70ch; }
+.prose h2 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+.prose p { color: var(--muted); }
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 15px; }
+th, td { text-align: start; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--font-display); font-weight: 600; background: var(--soft); }
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Footer */
+.site-foot { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; color: var(--muted); font-size: 14px; }
+.site-foot nav { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+
+@media (max-width: 780px) {
+  .hero { grid-template-columns: minmax(0, 1fr); padding-block: 24px 40px; }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .areas li { grid-template-columns: minmax(0, 1fr); }
+  .areas .eg { justify-self: start; }
+  .tip-list { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+[hidden] { display: none !important; }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site-head">
+    <a class="brand" href="#home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle class="t" cx="16" cy="16" r="12"></circle><circle class="a" cx="16" cy="16" r="12"></circle></svg>
+      بصمتي الخضراء
+    </a>
+    <nav class="nav" aria-label="التنقل">
+      <a href="#home" data-nav="home">الرئيسية</a>
+      <a href="#tracker" data-nav="tracker">المتتبع</a>
+      <a href="#tips" data-nav="tips">نصايح</a>
+      <a href="#about" data-nav="about">عن المشروع</a>
+    </nav>
+  </header>
+
+  <section class="page" id="page-home" data-page="home">
+<main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">تتبّع بيئي يومي</p>
+        <h1>اعرف أثرك على البيئة، يوم بيوم.</h1>
+        <p class="lead">سجّل عادات بسيطة زي قفل الحنفية والشنطة القماش، وشوف بالأرقام قد إيه مياه وكربون وبلاستيك وفّرتهم.</p>
+        <div class="btn-row">
+          <a class="btn primary" href="#tracker">ابدأ التسجيل</a>
+          <a class="btn ghost" href="#tips">اقرأ النصايح</a>
+        </div>
+      </div>
+
+      <div class="panel sample" aria-label="مثال لشكل يوم في المتتبع">
+        <span class="tag">مثال</span>
+        <div class="sample-body">
+          <div class="ring" role="img" aria-label="٦ عادات من ٨">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="bg" cx="60" cy="60" r="52"></circle>
+              <circle class="fg" cx="60" cy="60" r="52" style="stroke-dasharray:326.7;stroke-dashoffset:81.7"></circle>
+            </svg>
+            <div class="ring-num"><span>٦</span><small>من ٨</small></div>
+          </div>
+          <div class="sample-lines">
+            <div><span>مياه</span><b>٧٥ لتر</b></div>
+            <div><span>كربون</span><b>٢٫٦ كجم</b></div>
+            <div><span>بلاستيك</span><b>٤ قطع</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel mine" id="mine" hidden>
+      <div>
+        <p class="eyebrow">أثرك لحد دلوقتي</p>
+        <div class="nums">
+          <div><b id="mW">٠</b><span>لتر مياه</span></div>
+          <div><b id="mC">٠</b><span>كجم كربون</span></div>
+          <div><b id="mP">٠</b><span>قطعة بلاستيك</span></div>
+        </div>
+      </div>
+      <a class="btn primary" href="#tracker">كمّل النهارده</a>
+    </section>
+
+    <section class="section">
+      <h2>إزاي بيشتغل</h2>
+      <ol class="steps">
+        <li><h3>اختار عاداتك</h3><p>٨ عادات يومية بسيطة، ومش لازم تعملهم كلهم.</p></li>
+        <li><h3>علّم اللي عملته</h3><p>دوسة واحدة على كل عادة، والحساب بيتحدّث فورًا.</p></li>
+        <li><h3>شوف أثرك</h3><p>مياه وكربون وبلاستيك، وسلسلة أيام ناجحة ومستوى بيكبر معاك.</p></li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>خمس مجالات تبدأ منها</h2>
+      <ul class="areas">
+        <li><h3>المياه</h3><p>النيل مصدر مياهنا الأساسي، وكل لتر بنوفره بيفرق.</p><span class="eg">دش أقصر = ٤٥ لتر</span></li>
+        <li><h3>الكهربا</h3><p>إطفاء اللي مش بتستخدمه ونشر الغسيل في الشمس.</p><span class="eg">٠٫٣ كجم كربون</span></li>
+        <li><h3>البلاستيك</h3><p>شنطة قماش وزجاجة مياه بتتعبّى تاني.</p><span class="eg">٤ قطع في اليوم</span></li>
+        <li><h3>الأكل</h3><p>تشتري على قد حاجتك ومترميش اللي في طبقك.</p><span class="eg">٠٫٨ كجم كربون</span></li>
+        <li><h3>المواصلات</h3><p>المشاوير القريبة مشي، والبعيدة مواصلات عامة.</p><span class="eg">١٫٥ كجم كربون</span></li>
+      </ul>
+    </section>
+
+    <section class="cta">
+      <div>
+        <h2>ابدأ بعادة واحدة النهارده</h2>
+        <p>من غير حساب ولا تسجيل، وبياناتك بتفضل على جهازك.</p>
+      </div>
+      <a class="btn on-accent" href="#tracker">افتح المتتبع</a>
+    </section>
+  </main>
+</section>
+
+  <section class="page" id="page-tracker" data-page="tracker" hidden>
+<div class="page-head">
+    <div>
+      <h1>المتتبع</h1>
+      <p class="sub" id="date"></p>
+    </div>
+    <div class="level" aria-live="polite">
+      <div>
+        <div class="level-name" id="levelName"></div>
+        <div class="level-meta" id="levelMeta"></div>
+      </div>
+      <div class="level-track" aria-hidden="true"><div class="level-fill" id="levelFill"></div></div>
+    </div>
+  </div>
+
+  <main class="grid">
+    <section class="panel habits" aria-labelledby="hTitle">
+      <h2 id="hTitle">عاداتك النهارده</h2>
+      <ul class="habit-list" id="habitList"></ul>
+    </section>
+
+    <section class="panel today" aria-labelledby="tTitle">
+      <h2 id="tTitle">يومك</h2>
+      <div class="today-body">
+        <div class="ring" role="img" id="ringLabel">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="bg" cx="60" cy="60" r="52"></circle>
+            <circle class="fg" id="ringFg" cx="60" cy="60" r="52"></circle>
+          </svg>
+          <div class="ring-num"><span id="ringNum">٠</span><small id="ringOf"></small></div>
+        </div>
+        <div class="today-text">
+          <p class="today-msg" id="todayMsg"></p>
+          <p class="streak"><b id="streak">٠</b> <span id="streakLabel"></span></p>
+        </div>
+      </div>
+    </section>
+
+    <div class="more">
+      <section class="panel" aria-labelledby="totTitle">
+        <h2 id="totTitle">أثرك لحد دلوقتي</h2>
+        <div class="totals">
+          <div class="stat"><b id="totWater">٠</b><span>لتر مياه</span></div>
+          <div class="stat"><b id="totCo2">٠</b><span>كجم كربون</span></div>
+          <div class="stat"><b id="totPlastic">٠</b><span>قطعة بلاستيك</span></div>
+        </div>
+        <p class="note">الأرقام تقديرية ومبنية على متوسطات. <a href="#about">اعرف الحساب</a></p>
+      </section>
+
+      <section class="panel" aria-labelledby="wTitle">
+        <h2 id="wTitle">آخر ٧ أيام</h2>
+        <div class="week" id="week"></div>
+      </section>
+
+      <section class="panel tip-box" aria-labelledby="tipTitle">
+        <p class="eyebrow" id="tipTitle">نصيحة النهارده</p>
+        <p id="tipText"></p>
+      </section>
+
+      <div class="foot-row">
+        <span>بيتحفظ على جهازك بس.</span>
+        <button type="button" class="reset" id="reset">مسح كل التقدم</button>
+      </div>
+    </div>
+  </main>
+</section>
+
+  <section class="page" id="page-tips" data-page="tips" hidden>
+<div class="page-head">
+    <div>
+      <h1>نصايح بيئية</h1>
+      <p class="sub">خطوات صغيرة تقدر تبدأ بيها من بيتك النهارده.</p>
+    </div>
+  </div>
+
+  <main>
+    <div class="filters" id="filters" role="group" aria-label="تصفية حسب المجال"></div>
+    <ul class="tip-list" id="tipList"></ul>
+  </main>
+</section>
+
+  <section class="page" id="page-about" data-page="about" hidden>
+<div class="page-head">
+    <div>
+      <h1>عن المشروع</h1>
+      <p class="sub">إيه فكرته، وإزاي بنحسب الأرقام، وإيه اللي بيتحفظ عنك.</p>
+    </div>
+  </div>
+
+  <main class="prose">
+    <section>
+      <h2>الفكرة</h2>
+      <p>الحفاظ على البيئة بيبدأ من عادات صغيرة بنكررها كل يوم. بصمتي الخضراء بتخليك تسجّل العادات دي وتشوف أثرها بالأرقام، فتفضل مكمّل ومش بس تقرأ نصايح.</p>
+    </section>
+
+    <section>
+      <h2>اليوم الناجح والمستوى</h2>
+      <p>اليوم بيتحسب ناجح لما تعلّم ٣ عادات على الأقل، والأيام الناجحة ورا بعض هي سلسلتك. كل عادة بـ ١٠ نقاط، والنقاط بتنقلك من بذرة لشتلة لشجرة لغابة.</p>
+    </section>
+
+    <section>
+      <h2>إزاي بنحسب الأرقام</h2>
+      <p>الأرقام تقديرية ومبنية على افتراضات بسيطة، والهدف إنها تدّيك فكرة عن حجم الفرق مش قياس دقيق. ده الافتراض وراء كل عادة:</p>
+      <div class="table-scroll" style="margin-top:14px">
+        <table>
+          <thead><tr><th>العادة</th><th>الافتراض</th><th>مياه (لتر)</th><th>كربون (كجم)</th><th>بلاستيك</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>بياناتك</h2>
+      <p>مفيش حساب ولا تسجيل دخول. تقدمك بيتحفظ في متصفحك على جهازك بس ومبيتبعتش لأي مكان. لو مسحت بيانات المتصفح أو غيّرت الجهاز، التقدم مش هيظهر.</p>
+    </section>
+
+    <div class="btn-row"><a class="btn primary" href="#tracker">ابدأ التسجيل</a></div>
+  </main>
+</section>
+
+  <footer class="site-foot">
+    <span>بصمتي الخضراء · تقديرات تقريبية للتوعية</span>
+    <span><p>built with ❤️ by Youssef From Zaid bin Harithah Official Language School</p></span>
+    <nav aria-label="روابط سريعة"><a href="#home">الرئيسية</a><a href="#tracker">المتتبع</a><a href="#tips">نصايح</a><a href="#about">عن المشروع</a></nav>
+  </footer>
+</div>
+
+<script>
+/* Shared data and helpers for every page. Progress is stored in this browser only. */
+(function () {
+  var BK = window.BK = {};
+  BK.KEY = 'basmati-khadra-v1';
+  BK.POINTS = 10;
+  BK.ACTIVE_MIN = 3;
+  BK.LEVELS = [
+    { at: 0,   name: 'بذرة' },
+    { at: 100, name: 'شتلة' },
+    { at: 300, name: 'شجرة' },
+    { at: 700, name: 'غابة' }
+  ];
+  BK.HABITS = [
+    { id: 'tap',    t: 'اقفل الحنفية وانت بتغسل سنانك',           water: 8,  co2: 0,   plastic: 0, why: 'حوالي دقيقة مياه جارية من غير ما تستخدمها.' },
+    { id: 'shower', t: 'خلّي الدش ٥ دقايق بدل ١٠',                 water: 45, co2: 0.1, plastic: 0, why: 'بمعدل ٩ لتر في الدقيقة تقريبًا، ٥ دقايق أقل.' },
+    { id: 'bag',    t: 'خد شنطة قماش وانت نازل تشتري',             water: 0,  co2: 0.1, plastic: 3, why: 'افتراض ٣ شنط بلاستيك في المشوار الواحد.' },
+    { id: 'bottle', t: 'استخدم زجاجة مياه تتعبّى تاني',             water: 0,  co2: 0.1, plastic: 1, why: 'زجاجة بلاستيك واحدة بدل ما تشتري جديدة.' },
+    { id: 'light',  t: 'اطفي النور والأجهزة اللي مش بتستخدمها',     water: 0,  co2: 0.3, plastic: 0, why: 'كهربا قليلة بتتهدر على مدار اليوم، قيمة تقديرية.' },
+    { id: 'walk',   t: 'امشي أو اركب مواصلات عامة بدل العربية',     water: 0,  co2: 1.5, plastic: 0, why: 'مشوار بالعربية حوالي ٨ كم تقريبًا.' },
+    { id: 'food',   t: 'كل اللي في طبقك ومترميش أكل',              water: 20, co2: 0.8, plastic: 0, why: 'وجبة صغيرة كانت هتترمي، تقدير متحفظ.' },
+    { id: 'plant',  t: 'اسقي نبتة بمياه كانت هتروح على الأرض',      water: 2,  co2: 0.1, plastic: 0, why: 'لترين من مياه بتتعاد استخدامها.' }
+  ];
+  BK.nfInt = new Intl.NumberFormat('ar-EG', { maximumFractionDigits: 0 });
+  BK.nf1 = new Intl.NumberFormat('ar-EG', { maximumFractionDigits: 1 });
+
+  BK.state = { days: {} };
+  try {
+    var raw = localStorage.getItem(BK.KEY);
+    if (raw) { var p = JSON.parse(raw); if (p && p.days) BK.state = p; }
+  } catch (e) {}
+  BK.save = function () { try { localStorage.setItem(BK.KEY, JSON.stringify(BK.state)); } catch (e) {} };
+
+  BK.keyOf = function (d) {
+    var m = d.getMonth() + 1, day = d.getDate();
+    return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
+  };
+  BK.daysAgo = function (n) { var d = new Date(); d.setDate(d.getDate() - n); return d; };
+  BK.listFor = function (k) { return BK.state.days[k] || []; };
+  BK.byId = function (id) {
+    for (var i = 0; i < BK.HABITS.length; i++) if (BK.HABITS[i].id === id) return BK.HABITS[i];
+    return null;
+  };
+  BK.totals = function () {
+    var t = { w: 0, c: 0, p: 0, count: 0, pts: 0 };
+    Object.keys(BK.state.days).forEach(function (k) {
+      BK.state.days[k].forEach(function (id) {
+        var h = BK.byId(id); if (!h) return;
+        t.w += h.water; t.c += h.co2; t.p += h.plastic; t.count++;
+      });
+    });
+    t.pts = t.count * BK.POINTS;
+    return t;
+  };
+  BK.isActive = function (k) { return BK.listFor(k).length >= BK.ACTIVE_MIN; };
+  BK.streak = function () {
+    var n = 0, i = BK.isActive(BK.keyOf(BK.daysAgo(0))) ? 0 : 1;
+    while (BK.isActive(BK.keyOf(BK.daysAgo(i)))) { n++; i++; if (i > 3650) break; }
+    return n;
+  };
+})();
+
+</script>
+<script>
+
+(function () {
+  var TIPS = [
+    'ميّة الخضار المسلوقة بعد ما تبرد تنفع تسقي بيها النباتات.',
+    'الشمس معانا أغلب السنة، فنشّر الغسيل بدل النشّافة وهتوفر كهربا.',
+    'حنفية بتنقط ممكن تضيّع آلاف اللترات في السنة. صلّحها بدري.',
+    'اشتري من الخضري أو السوق القريب منك، هتقلل التغليف والمواصلات.',
+    'غسّالة الهدوم الأحسن تتشغّل وهي مليانة، مش نص فاضية.',
+    'لمبات الليد بتستهلك كهربا أقل بكتير من القديمة وبتعيش أطول.',
+    'قبل ما ترمي حاجة، فكّر لو حد تاني ممكن ينتفع بيها.',
+    'حط زجاجة المياه في شنطتك من الصبح، وهتستغنى عن زجاجة بلاستيك تانية.',
+    'الأكل اللي زاد من الفطار ممكن يبقى غدا بكرة، مش لازم يتبرمي.',
+    'كل شجرة بتتزرع جنب البيت بتخفّف الحر شوية في الصيف.'
+  ];
+  var HABITS = BK.HABITS, nfInt = BK.nfInt, nf1 = BK.nf1;
+  function $(id) { return document.getElementById(id); }
+  var todayKey = BK.keyOf(new Date());
+
+  try {
+    $('date').textContent = new Intl.DateTimeFormat('ar-EG', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
+  } catch (e) {}
+
+  var listEl = $('habitList');
+  HABITS.forEach(function (h) {
+    var li = document.createElement('li');
+    var chips = [];
+    if (h.water)   chips.push('<span class="chip"><i class="w"></i>' + nfInt.format(h.water) + ' لتر مياه</span>');
+    if (h.co2)     chips.push('<span class="chip"><i class="c"></i>' + nf1.format(h.co2) + ' كجم كربون</span>');
+    if (h.plastic) chips.push('<span class="chip"><i class="p"></i>' + nfInt.format(h.plastic) + ' بلاستيك</span>');
+    li.innerHTML =
+      '<button type="button" class="habit" role="checkbox" aria-checked="false" data-id="' + h.id + '">' +
+        '<span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>' +
+        '<span class="name">' + h.t + '</span>' +
+        '<span class="chips">' + chips.join('') + '</span>' +
+      '</button>';
+    listEl.appendChild(li);
+  });
+
+  listEl.addEventListener('click', function (e) {
+    var btn = e.target.closest('.habit');
+    if (!btn) return;
+    var id = btn.getAttribute('data-id');
+    var cur = BK.listFor(todayKey).slice();
+    var i = cur.indexOf(id);
+    if (i === -1) cur.push(id); else cur.splice(i, 1);
+    if (cur.length) BK.state.days[todayKey] = cur; else delete BK.state.days[todayKey];
+    BK.save();
+    render();
+  });
+
+  function render() {
+    var total = HABITS.length;
+    var done = BK.listFor(todayKey);
+
+    Array.prototype.forEach.call(listEl.querySelectorAll('.habit'), function (b) {
+      b.setAttribute('aria-checked', done.indexOf(b.getAttribute('data-id')) !== -1 ? 'true' : 'false');
+    });
+
+    var C = 2 * Math.PI * 52, fg = $('ringFg');
+    fg.style.strokeDasharray = C.toFixed(1);
+    fg.style.strokeDashoffset = (C * (1 - done.length / total)).toFixed(1);
+    $('ringNum').textContent = nfInt.format(done.length);
+    $('ringOf').textContent = 'من ' + nfInt.format(total);
+    $('ringLabel').setAttribute('aria-label', 'أنجزت ' + nfInt.format(done.length) + ' عادات من ' + nfInt.format(total));
+
+    var msg;
+    if (done.length === 0) msg = 'ابدأ بأي عادة، ومش لازم تخلّصهم كلهم.';
+    else if (done.length < BK.ACTIVE_MIN) msg = 'بداية حلوة. ' + nfInt.format(BK.ACTIVE_MIN - done.length) + ' كمان ويتحسب اليوم ناجح.';
+    else if (done.length < total) msg = 'اليوم ده ناجح. كمل لو تقدر.';
+    else msg = 'خلّصت كل العادات النهارده!';
+    $('todayMsg').textContent = msg;
+
+    var s = BK.streak();
+    $('streak').textContent = nfInt.format(s);
+    $('streakLabel').textContent = (s >= 2 && s <= 10) ? 'أيام ناجحة ورا بعض' : 'يوم ناجح ورا بعض';
+
+    var t = BK.totals();
+    $('totWater').textContent = nfInt.format(t.w);
+    $('totCo2').textContent = nf1.format(t.c);
+    $('totPlastic').textContent = nfInt.format(t.p);
+
+    var li = 0;
+    for (var i = 0; i < BK.LEVELS.length; i++) if (t.pts >= BK.LEVELS[i].at) li = i;
+    var cur = BK.LEVELS[li], next = BK.LEVELS[li + 1];
+    $('levelName').textContent = cur.name;
+    if (next) {
+      $('levelFill').style.width = Math.round(((t.pts - cur.at) / (next.at - cur.at)) * 100) + '%';
+      $('levelMeta').textContent = nfInt.format(t.pts) + ' نقطة · فاضل ' + nfInt.format(next.at - t.pts) + ' لحد ' + next.name;
+    } else {
+      $('levelFill').style.width = '100%';
+      $('levelMeta').textContent = nfInt.format(t.pts) + ' نقطة · وصلت لأعلى مستوى';
+    }
+
+    var wk = $('week'); wk.innerHTML = '';
+    var fmt = null;
+    try { fmt = new Intl.DateTimeFormat('ar-EG', { weekday: 'short' }); } catch (e) {}
+    for (var d = 6; d >= 0; d--) {
+      var dt = BK.daysAgo(d), n = BK.listFor(BK.keyOf(dt)).length;
+      var el = document.createElement('div');
+      el.className = 'day' + (d === 0 ? ' is-today' : '');
+      el.innerHTML = '<span class="n">' + nfInt.format(n) + '</span>' +
+        '<div class="bar" role="img" aria-label="' + nfInt.format(n) + ' من ' + nfInt.format(total) + '"><i style="height:' + Math.round((n / total) * 100) + '%"></i></div>' +
+        '<span>' + (fmt ? fmt.format(dt) : '') + '</span>';
+      wk.appendChild(el);
+    }
+  }
+
+  $('tipText').textContent = TIPS[Math.floor(Date.now() / 86400000) % TIPS.length];
+
+  var rb = $('reset'), armTimer = null;
+  function disarm() { clearTimeout(armTimer); rb.classList.remove('armed'); rb.textContent = 'مسح كل التقدم'; }
+  rb.addEventListener('click', function () {
+    if (!rb.classList.contains('armed')) {
+      rb.classList.add('armed');
+      rb.textContent = 'اضغط تاني للتأكيد';
+      armTimer = setTimeout(disarm, 4000);
+      return;
+    }
+    BK.state = { days: {} }; BK.save(); disarm(); render();
+  });
+
+  render();
+})();
+
+</script>
+<script>
+
+(function () {
+  var CATS = [
+    { id: 'all', n: 'الكل' },
+    { id: 'water', n: 'المياه' },
+    { id: 'power', n: 'الكهربا' },
+    { id: 'plastic', n: 'البلاستيك' },
+    { id: 'food', n: 'الأكل' },
+    { id: 'move', n: 'المواصلات' }
+  ];
+  var TIPS = [
+    { c: 'water', t: 'اقفل الحنفية وانت بتغسل سنانك أو بتحلق، لأن المياه بتفضل نازلة وانت مش بتستخدمها.' },
+    { c: 'water', t: 'صلّح الحنفية اللي بتنقط بدري. قطرة ورا قطرة بتجمع آلاف اللترات في السنة.' },
+    { c: 'water', t: 'اغسل الخضار والفاكهة في حلة بدل الحنفية المفتوحة، وبعدين اسقي بالمياه النباتات.' },
+    { c: 'water', t: 'الدش القصير بيوفر مياه أكتر من البانيو، وبيوفر كمان الكهربا اللي بتسخّن المياه.' },
+    { c: 'power', t: 'غيّر اللمبات القديمة بلمبات ليد. بتستهلك كهربا أقل وبتعيش أطول.' },
+    { c: 'power', t: 'افصل الشاحن من البريز لما تخلّص، لأنه بيفضل ياخد كهربا وهو فاضي.' },
+    { c: 'power', t: 'نشّر الغسيل في الشمس بدل النشّافة كل ما تقدر.' },
+    { c: 'power', t: 'شغّل التكييف على ٢٤ أو ٢٥ درجة بدل ما تنزّله أكتر، والفرق في الفاتورة بيبان.' },
+    { c: 'plastic', t: 'خلّي شنطة قماش في شنطتك أو في العربية، وهتستغنى عن شنط البلاستيك.' },
+    { c: 'plastic', t: 'استخدم زجاجة مياه تتعبّى تاني بدل ما تشتري زجاجة جديدة كل مرة.' },
+    { c: 'plastic', t: 'اشتري الحاجات السايبة زي البقوليات والتمر من محل بيبيع بالوزن لما تقدر.' },
+    { c: 'food', t: 'اعمل قايمة قبل ما تنزل السوق، وهتشتري على قد حاجتك ومتتبهدلش أكل.' },
+    { c: 'food', t: 'الأكل اللي زاد من الفطار ممكن يبقى غدا بكرة. حطه في علبة مقفولة في التلاجة.' },
+    { c: 'food', t: 'قشر الخضار والفاكهة ممكن يتحوّل لسماد لو عندك نبات أو حديقة صغيرة.' },
+    { c: 'move', t: 'المشوار القريب امشيه، وهتوفر البنزين وتتحرك وتاخد هوا.' },
+    { c: 'move', t: 'اركب مترو أو ميكروباص بدل ما كل واحد يروح بعربيته في نفس الاتجاه.' },
+    { c: 'move', t: 'لو رايح مكان مع زميل أو قريب، اركبوا مع بعض في عربية واحدة.' }
+  ];
+  var label = {}; CATS.forEach(function (c) { label[c.id] = c.n; });
+  var active = 'all';
+  var fEl = document.getElementById('filters'), lEl = document.getElementById('tipList');
+
+  CATS.forEach(function (c) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.textContent = c.n; b.setAttribute('data-c', c.id);
+    b.setAttribute('aria-pressed', c.id === active ? 'true' : 'false');
+    fEl.appendChild(b);
+  });
+  fEl.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    active = b.getAttribute('data-c');
+    Array.prototype.forEach.call(fEl.children, function (x) {
+      x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+    });
+    render();
+  });
+  function render() {
+    lEl.innerHTML = '';
+    TIPS.forEach(function (t) {
+      if (active !== 'all' && t.c !== active) return;
+      var li = document.createElement('li');
+      li.innerHTML = '<span class="cat"><i class="' + t.c + '"></i>' + label[t.c] + '</span><p>' + t.t + '</p>';
+      lEl.appendChild(li);
+    });
+  }
+  render();
+})();
+
+</script>
+<script>
+
+(function () {
+  var body = document.getElementById('rows');
+  BK.HABITS.forEach(function (h) {
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + h.t + '</td><td>' + h.why + '</td>' +
+      '<td class="num">' + BK.nfInt.format(h.water) + '</td>' +
+      '<td class="num">' + BK.nf1.format(h.co2) + '</td>' +
+      '<td class="num">' + BK.nfInt.format(h.plastic) + '</td>';
+    body.appendChild(tr);
+  });
+})();
+
+</script>
+<script>
+(function () {
+  var pages = ['home', 'tracker', 'tips', 'about'];
+  var titles = {
+    home: 'بصمتي الخضراء',
+    tracker: 'المتتبع · بصمتي الخضراء',
+    tips: 'نصايح بيئية · بصمتي الخضراء',
+    about: 'عن المشروع · بصمتي الخضراء'
+  };
+  var navs = document.querySelectorAll('[data-nav]');
+  function updateMine() {
+    var t = BK.totals(), box = document.getElementById('mine');
+    if (!t.count) { box.hidden = true; return; }
+    document.getElementById('mW').textContent = BK.nfInt.format(t.w);
+    document.getElementById('mC').textContent = BK.nf1.format(t.c);
+    document.getElementById('mP').textContent = BK.nfInt.format(t.p);
+    box.hidden = false;
+  }
+  function show() {
+    var h = (location.hash || '#home').slice(1);
+    if (pages.indexOf(h) === -1) h = 'home';
+    pages.forEach(function (p) { document.getElementById('page-' + p).hidden = (p !== h); });
+    Array.prototype.forEach.call(navs, function (a) {
+      var on = a.getAttribute('data-nav') === h;
+      a.classList.toggle('on', on);
+      if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+    document.title = titles[h];
+    if (h === 'home') updateMine();
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', show);
+  show();
+})();
+</script>
+<footer>
+   
+</footer>
+</body>
+</html>
